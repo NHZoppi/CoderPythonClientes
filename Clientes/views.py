@@ -1,6 +1,7 @@
 from django.shortcuts import render
-
 from .forms import ClienteForm, VentaForm, ArticuloForm
+from .models import Cliente, Venta, Articulos
+from datetime import datetime
 
 def cliente_form_view(request):
     if request.method == 'POST':
@@ -26,6 +27,10 @@ def venta_form_view(request):
     if request.method == 'POST':
         form = VentaForm(request.POST)
         if form.is_valid():
+            venta = Venta()
+            fecha = '31/12/2022'  # Cadena de texto con formato "día/mes/año"
+            fecha = datetime.strptime(fecha, "%d/%m/%Y").date()
+            venta.fecha = fecha
             form.save()
     else:
         form = VentaForm()
@@ -33,6 +38,6 @@ def venta_form_view(request):
 
 def saludar(request):
     return render(
-        request=request,
-        template_name='Clientes/base.html',
+        request,
+        "base.html"
     )
