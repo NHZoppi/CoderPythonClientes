@@ -7,7 +7,8 @@ def cliente_form_view(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
-            form.save()
+            cliente = form.save()
+            return render(request, "cliente_form.html", {"form":form, "cliente":cliente})
     else:
         form = ClienteForm()
     return render(request, 'cliente_form.html', {'form': form})
