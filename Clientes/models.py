@@ -14,6 +14,6 @@ class Articulos(models.Model):
 
 class Venta(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE, default=1)
+    articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal(0.0))
     fecha = models.DateField(default=timezone.now)
