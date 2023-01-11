@@ -17,6 +17,7 @@ class Articulos(models.Model):
 
     def __str__(self):
         return f"{self.nombre}, {self.precio}"
+        
 class Venta(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulos, on_delete=models.CASCADE)

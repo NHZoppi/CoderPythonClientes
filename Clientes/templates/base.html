@@ -13,9 +13,20 @@
             <a class="navbar-brand" href="{% url 'cliente_form' %}">Cliente</a>
             <a class="navbar-brand" href="{% url 'articulo_form' %}">Articulo</a>
             <a class="navbar-brand" href="{% url 'venta_form' %}">Venta</a>
-            <a class="btn btn-primary" href="#signup">INICIAR</a>
+            <a class="btn btn-primary" href="{% url 'register' %}">Registrarse</a>
+            <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
         </div>
     </nav>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class ="notification {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
     {% block contenido %}
     {% endblock contenido %}
 </body>

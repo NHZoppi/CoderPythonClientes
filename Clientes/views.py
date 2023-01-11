@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from .forms import ClienteForm, VentaForm, ArticuloForm
+from django.shortcuts import render, redirect
+from .forms import ClienteForm, VentaForm, ArticuloForm, RegisterForm
 from .models import Cliente, Venta, Articulos
 from datetime import datetime
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
 
 def cliente_form_view(request):
     if request.method == 'POST':
@@ -36,6 +38,23 @@ def venta_form_view(request):
     else:
         form = VentaForm()
     return render(request, 'venta_form.html', {'form': form})
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Procesa los datos del formulario
+            username = form.cleaned_data.get('username')
+            messages.success(request, f"Usuario {username} creado")
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            return redirect ("base")
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+
 
 def saludar(request):
     return render(
